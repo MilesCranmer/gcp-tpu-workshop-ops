@@ -1,0 +1,39 @@
+{
+  "billing_account": "XXXXXX-XXXXXX-XXXXXX",
+  "control_project": "workshop-control",
+  "budget_topic": "projects/workshop-control/topics/workshop-budget-alerts",
+  "kill_switch_service_account": "budget-kill-switch@workshop-control.iam.gserviceaccount.com",
+  "project_pattern": "dis-2026-tpu-{participant_id}",
+  "budget_prefix": "DIS2026_CAP:",
+  "budget_amount_usd": 500,
+  "budget_calendar_period": "year",
+  "budget_credit_treatment": "exclude-all-credits",
+  "required_services": [
+    "compute.googleapis.com",
+    "tpu.googleapis.com",
+    "cloudquotas.googleapis.com",
+    "serviceusage.googleapis.com"
+  ],
+  "participant_roles": [
+    "roles/tpu.admin",
+    "roles/iam.serviceAccountUser",
+    "roles/compute.viewer"
+  ],
+  "kill_switch_project_roles": [
+    "roles/billing.projectManager",
+    "roles/browser"
+  ],
+  "tpu": {
+    "accelerator_type": "v6e-1",
+    "allowed_zone": "us-east5-b",
+    "max_v6e_cores": 2,
+    "preemptible_v6e_cores": 0,
+    "v6e_zones": [
+      "us-east5-a",
+      "us-east5-b",
+      "us-east5-c"
+    ]
+  },
+  "function_name": "workshop-budget-kill-switch",
+  "function_region": "europe-west2"
+}

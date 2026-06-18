@@ -1,0 +1,16 @@
+{
+  "name": "gcp-tpu-workshop-budget-kill-switch",
+  "private": true,
+  "version": "0.1.0",
+  "main": "index.js",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node test.js"
+  },
+  "dependencies": {
+    "@google-cloud/billing": "^4.0.0",
+    "@google-cloud/functions-framework": "^3.0.0"
+  }
+}

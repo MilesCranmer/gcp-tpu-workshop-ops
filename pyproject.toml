@@ -1,0 +1,10 @@
+[project]
+name = "gcp-tpu-workshop-ops"
+version = "0.1.0"
+description = "Operations guide and dry-run-first scripts for quota-controlled Google Cloud TPU workshops."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = []
+
+[tool.uv]
+package = false
