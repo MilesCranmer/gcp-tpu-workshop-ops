@@ -1,6 +1,6 @@
-# GCP TPU Workshop Ops
+# Build-a-GCP-TPU-Workshop 🧸
 
-A practical guide for running a Google Cloud TPU workshop with many participants under one billing account.
+A practical guide for building a Google Cloud TPU workshop with many participants under one billing account.
 
 The setup is:
 
