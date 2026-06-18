@@ -1,8 +1,8 @@
 # Build-a-GCP Workshop 🧸 — TPU edition!
 
-You want to hand a room full of people their own TPUs for a day. You do not want one of them to accidentally spin up far more accelerator than intended and leave you explaining a five-figure bill. This repo is the build table: one sandboxed Google Cloud project per participant, one billing account behind the whole thing.
+A practical guide for building a Google Cloud TPU workshop with many participants under one billing account.
 
-The build goes like this:
+The setup is:
 
 1. collect each participant's Google account;
 2. create one Google Cloud project per participant;
@@ -12,15 +12,15 @@ The build goes like this:
 6. deploy a budget kill-switch that disables billing for over-budget projects;
 7. apply strict TPU quota caps so delayed billing data cannot create a large overspend;
 8. verify every project before granting participant IAM;
-9. add participants only as the final step — stitch them in last, once everything else holds.
+9. add participants only as the final step.
 
-This is for the people running the workshop, not the people attending it. It assumes you're comfortable with `gcloud` and a billing account you actually own.
+This repo is intended for workshop organizers. It is not a student tutorial.
 
 ## Why this design
 
-Here's the thing a budget alert won't tell you: it is not a prepaid hard cap, and it arrives late. Budget notifications lag behind actual usage, sometimes by hours. For most products that lag is harmless. For TPUs it isn't — someone can provision a lot of accelerator-hours in the window before the budget data catches up, and by the time the alert fires the money is already spent.
+Google Cloud budgets are useful, but they are not prepaid hard caps. Budget notifications can lag behind actual resource usage. For TPU workshops, that matters: a participant could accidentally provision expensive accelerators before budget data catches up.
 
-So this doesn't lean on budgets alone. The layers are:
+The safety model is:
 
 - **one project per participant**: isolates IAM, budgets, and cleanup;
 - **budget alerts**: detect gross usage against a participant allowance;
@@ -88,11 +88,11 @@ This uses `uv` for Python tests and `npm ci && npm test` for the Cloud Function.
 
 ## Important caveat
 
-Don't sell this to yourself or anyone else as a guaranteed prepaid hard cap — it isn't one. It's a layered safety system where the quota caps do the real blast-radius work and the rest catches up after the fact:
+Do not advertise this as a guaranteed prepaid hard cap. It is a practical workshop safety system:
 
-- quota caps bound how much TPU can exist at once, so the worst case stays small;
+- quota caps limit sudden TPU overspend;
 - budgets detect reported spend;
-- the kill-switch disables billing once a budget notification arrives.
+- the kill-switch disables billing after a budget notification arrives.
 
 Google documents budget Pub/Sub delivery as at-least-once, potentially duplicated or out of order, and budget data is not a real-time meter. Disabling billing can also leave already-incurred but unreported charges on the original billing account.
 
